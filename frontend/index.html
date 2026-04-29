@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TRINETHRA - AI Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#ffb59a",
+                        "on-primary-container": "#848484",
+                        "surface-variant": "#e2e2e2",
+                        "surface-tint": "#5e5e5e",
+                        "on-primary-fixed": "#1b1b1b",
+                        "surface-container-low": "#f3f3f4",
+                        "on-primary-fixed-variant": "#474747",
+                        "tertiary-container": "#1b1c1c",
+                        "inverse-on-surface": "#f0f1f1",
+                        "surface-container": "#eeeeee",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e2e2e2",
+                        "outline": "#7e7576",
+                        "on-tertiary-container": "#848484",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f9f9f9",
+                        "on-secondary-container": "#fffbff",
+                        "primary-fixed": "#e2e2e2",
+                        "tertiary-fixed": "#e3e2e2",
+                        "secondary": "#a33800",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "on-background": "#1a1c1c",
+                        "on-surface": "#1a1c1c",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#c7c6c6",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#f9f9f9",
+                        "primary-container": "#1b1b1b",
+                        "tertiary": "#000000",
+                        "secondary-fixed": "#ffdbce",
+                        "on-secondary-fixed": "#370e00",
+                        "on-surface-variant": "#4c4546",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-dim": "#dadada",
+                        "secondary-container": "#cd4800",
+                        "inverse-surface": "#2f3131",
+                        "primary": "#000000",
+                        "on-tertiary-fixed-variant": "#464747",
+                        "on-secondary-fixed-variant": "#802a00",
+                        "surface": "#f9f9f9",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#cfc4c5",
+                        "inverse-primary": "#c6c6c6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "padding-cell": "16px",
+                        "border-width": "2px",
+                        "border-width-heavy": "4px",
+                        "gutter": "0px",
+                        "grid-unit": "4px",
+                        "margin-base": "24px"
+                    },
+                    "fontFamily": {
+                        "caption": ["Space Grotesk"],
+                        "body-lg": ["Space Grotesk"],
+                        "headline-xl": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "body-md": ["Space Grotesk"],
+                        "label-mono": ["Monospace"],
+                        "headline-md": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                        "headline-xl": ["64px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-mono": ["14px", {"lineHeight": "1.0", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-white dark:bg-zinc-950 docked full-width top-0 border-b-4 border-black dark:border-white flex justify-between items-center px-6 h-20 w-full fixed z-50">
+<div class="flex items-center gap-6">
+<h1 class="text-3xl font-black text-black dark:text-white tracking-tighter style_brand_logo">TRINETHRA</h1>
+<div class="hidden md:flex items-center gap-8 h-20">
+<nav class="flex h-full items-center">
+<a id="topNavWorkspace" data-view="workspace" class="h-full flex items-center px-4 font-['Space_Grotesk'] font-bold uppercase tracking-widest cursor-pointer transition-colors hover:bg-black hover:text-white">Workspace</a>
+<a id="topNavArchive" data-view="archive" class="h-full flex items-center px-4 font-['Space_Grotesk'] font-bold uppercase tracking-widest cursor-pointer transition-colors hover:bg-black hover:text-white">Archive</a>
+<a id="topNavKpis" data-view="kpis" class="h-full flex items-center px-4 font-['Space_Grotesk'] font-bold uppercase tracking-widest cursor-pointer transition-colors hover:bg-black hover:text-white">KPIs</a>
+<a id="topNavSettings" data-view="settings" class="h-full flex items-center px-4 font-['Space_Grotesk'] font-bold uppercase tracking-widest cursor-pointer transition-colors hover:bg-black hover:text-white">Settings</a>
+</nav>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div id="healthPill" class="flex items-center gap-2 px-3 py-1 border-2 border-black bg-white">
+<span class="material-symbols-outlined text-orange-600" data-icon="sensors">sensors</span>
+<span id="healthText" class="font-label-mono text-caption uppercase">System Health: SYSTEM_ACTIVE</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-20 h-[calc(100vh-80px)] z-40 bg-white dark:bg-zinc-900 w-64 border-r-4 border-black dark:border-zinc-800 hidden md:flex flex-col">
+<div class="p-6 border-b-2 border-black dark:border-zinc-800">
+<div class="text-xl font-black text-black dark:text-white">ANALYZER_V1</div>
+<div class="text-xs font-label-mono text-on-primary-container">SYSTEM_ACTIVE</div>
+</div>
+<nav class="flex-grow">
+<a id="sideNavWorkspace" data-view="workspace" class="flex items-center gap-4 p-4 border-b-2 border-black dark:border-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-800 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-['Space_Grotesk'] font-medium text-sm">Workspace</span>
+</a>
+<a id="sideNavArchive" data-view="archive" class="flex items-center gap-4 p-4 border-b-2 border-black dark:border-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-800 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-['Space_Grotesk'] font-medium text-sm">Archive</span>
+</a>
+<a id="sideNavKpis" data-view="kpis" class="flex items-center gap-4 p-4 border-b-2 border-black dark:border-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-800 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="token">token</span>
+<span class="font-['Space_Grotesk'] font-medium text-sm">KPIs</span>
+</a>
+<a id="sideNavSettings" data-view="settings" class="flex items-center gap-4 p-4 border-b-2 border-black dark:border-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-800 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Space_Grotesk'] font-medium text-sm">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="pt-20 md:pl-64 min-h-screen">
+<div id="view-workspace">
+<div class="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-80px)]">
+<!-- Left Panel (Input) -->
+<section class="border-r-4 border-black p-8 bg-white overflow-y-auto">
+<div class="mb-8">
+<h2 class="text-headline-lg font-headline-lg uppercase mb-2">Supervisor Transcript</h2>
+<div class="h-1 w-24 bg-orange-600"></div>
+</div>
+<div class="space-y-6">
+<!-- Fields -->
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="font-label-mono text-caption uppercase">Fellow Name</label>
+<input id="fellowName" class="w-full border-2 border-black p-3 font-body-md focus:ring-0 focus:border-4 focus:border-black outline-none" type="text" placeholder="Karthik"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-mono text-caption uppercase">Company</label>
+<input id="companyName" class="w-full border-2 border-black p-3 font-body-md focus:ring-0 focus:border-4 focus:border-black outline-none" placeholder="Enter Company..." type="text"/>
+</div>
+</div>
+<!-- Quick Selection -->
+<div class="space-y-2">
+<label class="font-label-mono text-caption uppercase">Recent Transcripts</label>
+<div class="flex gap-2 flex-wrap">
+<button id="sampleKarthikBtn" data-sample="karthik" class="px-4 py-2 border-2 border-black font-label-mono bg-white hover:bg-zinc-100 brutalist-shadow-hover">Karthik</button>
+<button id="sampleMeenaBtn" data-sample="meena" class="px-4 py-2 border-2 border-black font-label-mono bg-white hover:bg-zinc-100 brutalist-shadow-hover">Meena</button>
+<button id="sampleAnilBtn" data-sample="anil" class="px-4 py-2 border-2 border-black font-label-mono bg-white hover:bg-zinc-100 brutalist-shadow-hover">Anil</button>
+</div>
+</div>
+<!-- Transcript Area -->
+<div class="space-y-2 flex flex-col h-full">
+<label class="font-label-mono text-caption uppercase">Raw Transcript Input</label>
+<textarea id="transcript" class="w-full border-2 border-black p-4 font-body-md focus:ring-0 focus:border-4 focus:border-black resize-none outline-none" placeholder="Paste transcript here..." rows="18"></textarea>
+</div>
+<!-- Run Button -->
+<div>
+    <button id="analyzeBtn" class="w-full bg-secondary py-5 border-4 border-black text-white font-headline-md uppercase tracking-widest brutalist-shadow-hover brutalist-shadow-active flex items-center justify-center gap-4">
+    <span class="material-symbols-outlined text-3xl" data-icon="bolt">bolt</span>
+                            Run Analysis
+                        </button>
+    <div id="statusMessage"></div>
+</div>
+</div>
+</section>
+<!-- Right Panel (Output) -->
+<section class="bg-surface-container-low p-8 overflow-y-auto">
+<div class="mb-4 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+<div>
+<h2 class="text-headline-lg font-headline-lg uppercase mb-2">Assessment Draft</h2>
+<div class="h-1 w-24 bg-black"></div>
+</div>
+<div class="bg-black text-white px-4 py-2 font-label-mono text-caption flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-600" data-icon="warning" data-weight="fill">warning</span>
+                        AI DRAFT: SUBJECT TO REVIEW
+                    </div>
+</div>
+
+<div id="emptyState" class="mt-12 text-center border-4 border-black p-8 bg-white brutalist-shadow">
+    <h3 class="text-headline-md font-headline-md uppercase mb-2">No analysis yet</h3>
+    <p class="font-body-md text-on-surface">Load a sample or paste a transcript, then run analysis to generate a structured draft.</p>
+</div>
+
+<!-- Bento Grid Results -->
+<div id="results" class="grid-cols-12 gap-4" style="display: none;">
+<!-- Score Card Container (populated by JS) -->
+<div id="scoreCard" class="col-span-12 grid grid-cols-12 gap-4"></div>
+
+<!-- Evidence Section -->
+<div class="col-span-12 border-4 border-black bg-white p-6 brutalist-shadow">
+<div class="flex justify-between items-end border-b-2 border-black mb-6 pb-1">
+  <div class="font-label-mono text-caption uppercase">Verified Evidence</div>
+  <div id="evidenceCount" class="font-label-mono text-caption"></div>
+</div>
+<div id="evidenceList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+</div>
+</div>
+<!-- KPI Mapping -->
+<div class="col-span-12">
+<div class="flex justify-between items-end mb-4">
+    <div class="font-label-mono text-caption uppercase">KPI Mapping Cluster</div>
+    <div id="kpiCount" class="font-label-mono text-caption"></div>
+</div>
+<div id="kpiList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0">
+</div>
+</div>
+<!-- Gaps -->
+<div class="col-span-12 md:col-span-6 border-4 border-black bg-white p-6 brutalist-shadow">
+<div class="flex justify-between items-end border-b-2 border-black mb-4 pb-1">
+    <div class="font-label-mono text-caption uppercase">Identified Gaps</div>
+    <div id="gapCount" class="font-label-mono text-caption"></div>
+</div>
+<ul id="gapList" class="space-y-3">
+</ul>
+</div>
+<!-- Follow-up -->
+<div class="col-span-12 md:col-span-6 border-4 border-black bg-white p-6 brutalist-shadow">
+<div class="flex justify-between items-end border-b-2 border-black mb-4 pb-1">
+    <div class="font-label-mono text-caption uppercase">Follow-up Questions</div>
+    <div id="questionCount" class="font-label-mono text-caption"></div>
+</div>
+<ul id="questionList" class="space-y-3">
+</ul>
+</div>
+
+<!-- Footer Actions -->
+<div class="col-span-12 mt-4 flex gap-4">
+<button id="saveBtn" class="flex-grow bg-black text-white py-4 border-2 border-black font-label-mono uppercase brutalist-shadow-hover flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+                        Save Assessment
+                    </button>
+<button id="exportBtn" class="px-8 bg-white text-black py-4 border-2 border-black font-label-mono uppercase brutalist-shadow-hover flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+                        Export
+                    </button>
+</div>
+
+</div>
+</section>
+</div>
+</section>
+</div>
+</div>
+
+<!-- ARCHIVE VIEW -->
+<div id="view-archive" style="display:none;" class="p-6">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-xl font-bold uppercase tracking-widest">Saved Assessments</h2>
+    <button id="clearArchiveBtn" class="text-xs font-label-mono uppercase border border-black px-3 py-1 brutalist-shadow brutalist-shadow-hover bg-white">
+      delete_forever Clear All
+    </button>
+  </div>
+  <div id="archiveList" class="space-y-3">
+    <!-- Rendered by renderArchive() -->
+  </div>
+</div>
+
+<!-- KPI REFERENCE VIEW -->
+<div id="view-kpis" style="display:none;" class="p-6">
+  <h2 class="text-xl font-bold uppercase tracking-widest mb-2">KPI Reference</h2>
+  <p class="font-label-mono text-xs text-gray-500 uppercase mb-6">
+    The 8 KPIs the AI maps Fellow work to. Supervisors never say "KPI" — the model infers from plain language.
+  </p>
+  <div id="kpiReferenceTable" class="space-y-3"></div>
+</div>
+
+<!-- SETTINGS VIEW -->
+<div id="view-settings" style="display:none;" class="p-6 max-w-xl">
+  <h2 class="text-xl font-bold uppercase tracking-widest mb-6">Settings</h2>
+
+  <!-- API URL Setting -->
+  <div class="mb-6">
+    <label class="block text-xs font-label-mono uppercase tracking-widest mb-2">Backend API URL</label>
+    <div class="flex gap-2">
+      <input id="settingApiUrl" type="text" placeholder="http://localhost:8001"
+             class="flex-1 border border-black px-3 py-2 font-label-mono text-sm focus:outline-none brutalist-shadow">
+      <button id="saveApiUrlBtn" class="border border-black px-4 py-2 text-xs font-label-mono uppercase brutalist-shadow brutalist-shadow-hover bg-white">
+        Save
+      </button>
+    </div>
+    <p class="text-xs text-gray-400 font-label-mono mt-1">Current: <span id="currentApiUrl"></span></p>
+  </div>
+
+  <!-- Fast Mode Toggle -->
+  <div class="mb-6 flex items-center justify-between border border-black brutalist-shadow p-4 bg-white">
+    <div>
+      <div class="font-bold text-sm uppercase tracking-wide">Fast Mode</div>
+      <div class="text-xs text-gray-500 font-label-mono mt-1">Uses a shorter prompt for quicker Gemma responses (&lt;60s). Slightly less detailed output.</div>
+    </div>
+    <label class="relative inline-flex items-center cursor-pointer ml-4">
+      <input type="checkbox" id="settingFastMode" class="sr-only peer">
+      <div class="w-11 h-6 bg-gray-200 peer-checked:bg-black rounded-none border border-black transition-colors"></div>
+      <div class="absolute left-1 top-1 w-4 h-4 bg-white border border-black transition-transform peer-checked:translate-x-5"></div>
+    </label>
+  </div>
+
+  <!-- Model Display -->
+  <div class="mb-6 border border-black brutalist-shadow p-4 bg-white">
+    <div class="font-bold text-sm uppercase tracking-wide">Active Model</div>
+    <div id="settingModelName" class="text-xs font-label-mono text-orange-600 mt-1">Checking...</div>
+  </div>
+
+  <!-- Danger Zone -->
+  <div class="border border-red-600 p-4 bg-white brutalist-shadow">
+    <div class="font-bold text-sm uppercase tracking-wide text-red-600 mb-3">Danger Zone</div>
+    <button id="clearAllDataBtn" class="border border-red-600 text-red-600 px-4 py-2 text-xs font-label-mono uppercase hover:bg-red-600 hover:text-white transition-colors bg-white">
+      delete_forever Clear All Saved Assessments
+    </button>
+  </div>
+</div>
+</main>
+<!-- Bottom Nav for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white border-t-4 border-black z-50 flex items-center justify-around">
+<button id="mobileNavWorkspace" data-view="workspace" class="flex flex-col items-center">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-[10px] font-label-mono">WORKSPACE</span>
+</button>
+<button id="mobileNavArchive" data-view="archive" class="flex flex-col items-center">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="text-[10px] font-label-mono">ARCHIVE</span>
+</button>
+<button id="mobileNavKpis" data-view="kpis" class="flex flex-col items-center">
+<span class="material-symbols-outlined" data-icon="token">token</span>
+<span class="text-[10px] font-label-mono">KPIS</span>
+</button>
+<button id="mobileNavSettings" data-view="settings" class="flex flex-col items-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px] font-label-mono">SETTINGS</span>
+</button>
+</nav>
+<script src="app.js"></script>
+</body></html>
