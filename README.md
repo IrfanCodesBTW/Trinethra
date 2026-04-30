@@ -178,10 +178,3 @@ If given more time, the following enhancements are planned:
 3.  **PDF/Excel Reporting**: Upgrade the export feature from plain text to professional PDF reports with charts showing KPI impact over time.
 4.  **Local Vector DB**: Implement a local RAG (Retrieval-Augmented Generation) system using ChromaDB to compare the current feedback with the Professional's historical performance for trend analysis.
 
-## Submission Videos
-
-- **App Demo (2-3 min)**: [2026-04-30 11-36-45.mp4](file:///f:/projects/assessment/DecisionEngine/2026-04-30%2011-36-45.mp4)
-- **Code Walkthrough (3-5 min)**: [2026-04-30 11-22-44.mp4](file:///f:/projects/assessment/DecisionEngine/2026-04-30%2011-22-44.mp4)
-
-> [!NOTE]
-> Videos are submitted via the Internshala chat as per the assignment instructions.
