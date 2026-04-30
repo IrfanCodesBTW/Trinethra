@@ -1,6 +1,6 @@
 const params = new URLSearchParams(window.location.search);
-const SETTINGS_KEY = "trinethra_settings";
-const ARCHIVE_KEY = "trinethra_archive";
+const SETTINGS_KEY = "DecisionEngine_settings";
+const ARCHIVE_KEY = "DecisionEngine_archive";
 const DEFAULT_API_BASE = "http://localhost:8001";
 const MIN_TRANSCRIPT_CHARS = 50;
 const MAX_TRANSCRIPT_CHARS = 10000;
@@ -543,7 +543,7 @@ function saveAssessment() {
   const entry = {
     id: Date.now(),
     savedAt: new Date().toISOString(),
-    fellowName: els.fellowName.value.trim() || "Unknown Fellow",
+    fellowName: els.fellowName.value.trim() || "Unknown Professional",
     companyName: els.companyName.value.trim() || "Unknown Company",
     transcript: els.transcript.value.trim(),
     analysis,
@@ -688,9 +688,9 @@ function exportAssessment() {
   const score = currentResult.score || {};
 
   let text = "";
-  text += "TRINETHRA ASSESSMENT DRAFT\n";
+  text += "DECISIONENGINE ASSESSMENT DRAFT\n";
   text += `Generated: ${now}\n`;
-  text += `Fellow: ${fellowName} | Company: ${companyName}\n`;
+  text += `Professional: ${fellowName} | Company: ${companyName}\n`;
   text += `${"=".repeat(60)}\n\n`;
 
   text += `PERFORMANCE SCORE\n${"-".repeat(40)}\n`;
@@ -740,7 +740,7 @@ function exportAssessment() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `trinethra_${fellowName.replace(/\s+/g, "_")}_${Date.now()}.txt`;
+  a.download = `DecisionEngine_${fellowName.replace(/\s+/g, "_")}_${Date.now()}.txt`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

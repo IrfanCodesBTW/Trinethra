@@ -1,109 +1,109 @@
 [
   {
-    "score": 1,
     "label": "Not Interested",
     "band": "Need Attention",
     "description": "The Fellow appears disengaged, absent, or unwilling to put in visible effort on basic work.",
-    "signals": [
+    "value": 1,
+    "key_signals": [
       "disengaged or no visible effort",
       "misses meetings or ignores assigned work",
       "supervisor has very low confidence in reliability"
     ]
   },
   {
-    "score": 2,
     "label": "Lacks Discipline",
     "band": "Need Attention",
     "description": "The Fellow works only when directly told and does not maintain basic discipline without close supervision.",
-    "signals": [
+    "value": 2,
+    "key_signals": [
       "works only when told",
       "requires repeated reminders",
       "does not follow through independently"
     ]
   },
   {
-    "score": 3,
     "label": "Motivated but Directionless",
     "band": "Need Attention",
     "description": "The Fellow may show enthusiasm, but effort is unfocused and does not reliably convert into useful output.",
-    "signals": [
+    "value": 3,
+    "key_signals": [
       "enthusiastic but unfocused",
       "starts work without clear outcomes",
       "needs close direction to produce value"
     ]
   },
   {
-    "score": 4,
     "label": "Careless and Inconsistent",
     "band": "Productivity",
     "description": "The Fellow produces some output, but quality and consistency are unreliable.",
-    "signals": [
+    "value": 4,
+    "key_signals": [
       "output exists but is unreliable",
       "quality varies across tasks",
       "supervisor cannot yet trust follow-through"
     ]
   },
   {
-    "score": 5,
     "label": "Consistent Performer",
     "band": "Productivity",
     "description": "The Fellow does what is asked and meets expected standards, but mostly within assigned scope.",
-    "signals": [
+    "value": 5,
+    "key_signals": [
       "does what is asked",
       "meets standards",
       "limited evidence of initiative beyond assigned work"
     ]
   },
   {
-    "score": 6,
     "label": "Reliable and Productive",
     "band": "Productivity",
     "description": "The Fellow is trusted with defined responsibilities and follows through well, but does not clearly identify new problems or build durable systems.",
-    "signals": [
+    "value": 6,
+    "key_signals": [
       "give task and forget",
       "high trust on assigned work",
       "consistent execution within assigned scope"
     ]
   },
   {
-    "score": 7,
     "label": "Problem Identifier",
     "band": "Performance",
     "description": "The Fellow notices patterns or problems independently and expands the scope beyond assigned tasks.",
-    "signals": [
+    "value": 7,
+    "key_signals": [
       "notices patterns",
       "expands scope unprompted",
       "surfaces problems the supervisor had not articulated"
     ]
   },
   {
-    "score": 8,
     "label": "Problem Solver",
     "band": "Performance",
     "description": "The Fellow builds useful solutions, not just reports problems, and begins producing visible business improvements.",
-    "signals": [
+    "value": 8,
+    "key_signals": [
       "builds solutions, not just reports",
       "creates trackers, SOPs, dashboards, or routines",
       "connects root causes to measurable outcomes"
     ]
   },
   {
-    "score": 9,
     "label": "Innovative and Experimental",
     "band": "Performance",
     "description": "The Fellow tests approaches, builds new tools, and gets others to adopt improved ways of working.",
-    "signals": [
+    "value": 9,
+    "key_signals": [
       "tests approaches",
       "builds new tools",
       "teams adopt the Fellow's process changes"
     ]
   },
   {
-    "score": 10,
     "label": "Exceptional Performer",
     "band": "Performance",
     "description": "The Fellow creates replicable systems that others learn from and that continue to shape the operating rhythm after the Fellow leaves.",
-    "signals": [
+    "value": 10,
+    "key_signals": [
       "creates replicable systems others learn from",
       "systems survive without the Fellow",
       "major business outcomes improve through durable operating changes"

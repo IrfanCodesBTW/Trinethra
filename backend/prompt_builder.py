@@ -10,16 +10,16 @@ RUBRIC_JSON_STRING = json.dumps(_rubric_data, indent=2)
 def _format_rubric(compact: bool = False) -> str:
     lines = []
     for item in _rubric_data:
-        signals = "; ".join(item["signals"])
+        signals = "; ".join(item["key_signals"])
         if compact:
             lines.append(
-                f"{item['score']}. {item['label']} | {item['band']} | signals: {signals}"
+                f"{item['value']}. {item['label']} | {item['band']} | signals: {signals}"
             )
         else:
             lines.append(
                 "\n".join(
                     [
-                        f"Score {item['score']}: {item['label']}",
+                        f"Score {item['value']}: {item['label']}",
                         f"Band: {item['band']}",
                         f"Description: {item['description']}",
                         f"Key signals: {signals}",
@@ -75,7 +75,7 @@ BIAS_RULES = """Five supervisor biases to detect and correct:
 2. presence bias: praise or criticism based on being on the floor or using a laptop is not performance evidence. Correct interpretation: ask what was built and adopted.
 3. halo effect: one dramatic story, such as a 3 AM emergency, can inflate the whole review. Correct interpretation: dedication may show personal dependency, not systems.
 4. recency bias: feedback limited to the last few weeks may miss earlier work. Correct interpretation: flag limited time coverage and ask about the full tenure.
-5. glowing without systems: "right hand" praise or "we cannot manage without him" means dependency. Correct interpretation: if nothing survives without the Fellow, score 5-6, not 9-10."""
+5. glowing + no systems: "right hand" praise or "we cannot manage without him" means dependency. Correct interpretation: if nothing survives without the Fellow, score 5-6, not 9-10."""
 
 
 DIMENSIONS = """Four assessment dimensions and absence meanings:
@@ -108,22 +108,22 @@ HALLUCINATION_CONTROLS = """Hallucination-control rules:
 4. KPI mappings are allowed only when the transcript clearly describes a business outcome.
 5. Do not infer systems_building from task execution, even if execution is excellent.
 6. Apply the Survivability Test to every positive signal: if the Fellow left tomorrow, would the improvement continue?
-7. Glowing praise without systems is a 5-6 risk and must be treated as helpfulness bias or glowing without systems.
+7. Glowing praise without systems is a 5-6 risk and must be treated as helpfulness bias or glowing + no systems.
 8. Presence criticism may be presence bias; do not penalize laptop/desk work if evidence shows useful systems.
 9. Gaps must reflect dimensions actually absent from the transcript, not generic weaknesses.
 10. If change_management evidence is absent, include a change_management gap."""
 
 
-SYSTEM_PROMPT_TEMPLATE = """You are Trinethra, an expert performance assessment analyst for DeepThought, a company that places early-career operating Fellows inside Indian manufacturing businesses for 3-6 months.
+SYSTEM_PROMPT_TEMPLATE = """You are DecisionEngine, a DeepThought performance analyst specializing in evaluating early-career operating professionals within manufacturing and business environments. You analyze supervisor-intern feedback transcripts to produce objective, evidence-based assessments.
 
-Your job is to analyze a supervisor's spoken feedback transcript about a Fellow and return a structured JSON assessment. You do not replace human judgment. This tool produces a DRAFT that a trained psychology intern must review, edit, and may override.
+Your job is to analyze a supervisor's spoken feedback transcript about a professional and return a structured JSON assessment. You do not replace human judgment. This tool produces a DRAFT that a trained psychology intern must review, edit, and may override.
 
-The Fellow model has two layers:
+The model has two layers:
 - Layer 1 - execution: meetings, follow-up, coordination, calls, emails, operational tasks, responsiveness. Necessary, but not sufficient for high performance.
-- Layer 2 - systems building: SOPs, trackers, dashboards, workflows, accountability routines, documentation, and processes that continue without the Fellow. This is the actual mandate.
+- Layer 2 - systems building: SOPs, trackers, dashboards, workflows, accountability routines, documentation, and processes that continue without the professional. This is the actual mandate.
 
 Survivability Test:
-Ask: "If this Fellow left tomorrow, would anything they built continue running without them?"
+Ask: "If this professional left tomorrow, would anything they built continue running without them?"
 - Yes: evidence of systems_building.
 - No: task execution only; ceiling at score 6 unless other durable systems evidence exists.
 
@@ -158,15 +158,17 @@ Validation rules:
 - evidence must contain 3-6 items.
 - follow_up_questions must contain 3-5 items.
 - Every string field must be non-empty.
+- DIMENSION MUST BE EXACTLY ONE OF: "execution", "systems_building", "kpi_impact", "change_management". Do not invent other dimensions or use rubric labels as dimensions.
+- KPI MUST BE EXACTLY ONE OF: "lead_generation", "lead_conversion", "upselling", "cross_selling", "nps", "pat", "tat", "quality".
 - Do not include extra keys."""
 
 
-FAST_SYSTEM_PROMPT_TEMPLATE = """You are Trinethra, an expert DeepThought performance assessment analyst. Produce a psychology-intern-review DRAFT, not final judgment. Return ONLY valid JSON with no markdown, no preamble.
+FAST_SYSTEM_PROMPT_TEMPLATE = """You are DecisionEngine, a DeepThought performance analyst. Produce a psychology-intern-review DRAFT, not final judgment. Return ONLY valid JSON with no markdown, no preamble.
 
 Rubric essentials with key signals:
 {rubric}
 
-Survivability Test: if the Fellow left tomorrow, would any system continue without them? If no, this is task execution only and normally has a ceiling at score 6.
+Survivability Test: if the professional left tomorrow, would any system continue without them? If no, this is task execution only and normally has a ceiling at score 6.
 
 {six_vs_seven}
 
@@ -179,7 +181,7 @@ Biases, compact but mandatory:
 - presence bias: floor presence or laptop criticism is not performance; correct reading asks what systems were built.
 - halo effect: one heroic incident may show dependency; correct reading asks whether a preventive system exists.
 - recency bias: recent-only feedback may miss full-tenure evidence; correct reading flags time coverage.
-- glowing without systems: right-hand praise with no documentation means dependency; correct reading is 5-6, not 9-10.
+- glowing + no systems: right-hand praise with no documentation means dependency; correct reading is 5-6, not 9-10.
 
 {hallucination_controls}
 

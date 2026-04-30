@@ -1,5 +1,5 @@
 @echo off
-echo Starting Trinethra backend in FAST MODE on port 8001...
+echo Starting DecisionEngine backend in FAST MODE on port 8001...
 set PORT=8001
 set FAST_MODE=true
 cd backend

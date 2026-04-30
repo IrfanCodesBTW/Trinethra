@@ -1,9 +1,11 @@
 import os
 
 import httpx
+import logging
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from parser import ParseError, extract_json
 from prompt_builder import build_system_prompt, build_user_prompt
@@ -13,11 +15,15 @@ from prompt_builder import build_system_prompt, build_user_prompt
 # taskkill /PID <PID> /F
 # If process is unkillable (system-owned), use port 8001 instead via PORT=8001 env var
 
-app = FastAPI(title="Trinethra Analyzer")
+app = FastAPI(
+    title="DecisionEngine Analyzer",
+    description="A professional, local-first performance analytics engine that transforms supervisor feedback transcripts into structured, evidence-based performance assessments using local LLMs."
+)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -28,16 +34,16 @@ OLLAMA_TAGS_URL = f"{OLLAMA_BASE_URL.rstrip('/')}/api/tags"
 MODEL_NAME = os.getenv("OLLAMA_MODEL", "gemma4:e2b")
 OLLAMA_TIMEOUT_SECONDS = float(os.getenv("OLLAMA_TIMEOUT_SECONDS", "300"))
 FAST_MODE = os.getenv("FAST_MODE", "false").lower() == "true"
-PORT = int(os.getenv("PORT", 8001))
+PORT = int(os.getenv("PORT", "8001"))
 MAX_RETRIES = 3
 MIN_TRANSCRIPT_CHARS = 50
 MAX_TRANSCRIPT_CHARS = 10_000
 
 
 class AnalyzeRequest(BaseModel):
-    transcript: str
-    fellow_name: str = ""
-    company_name: str = ""
+    transcript: str = Field(..., min_length=1)
+    fellow_name: str = Field(...)
+    company_name: str = Field(...)
     fast_mode: bool = False
 
 
@@ -130,6 +136,7 @@ async def analyze(req: AnalyzeRequest, fast_mode: bool | None = None):
 
         except ParseError as exc:
             last_error = str(exc)
+            logging.warning(f"Attempt {attempt} failed: {last_error}")
             full_prompt += (
                 f"\n\n[RETRY {attempt}] Your previous response failed validation: {last_error}. "
                 "Return ONLY valid JSON starting with { and ending with }."
@@ -149,9 +156,6 @@ async def analyze(req: AnalyzeRequest, fast_mode: bool | None = None):
                 status_code=503,
                 detail=f"Ollama is not reachable at {OLLAMA_BASE_URL}. Make sure Ollama is running.",
             ) from exc
-
-        except httpx.HTTPError as exc:
-            raise HTTPException(status_code=502, detail=f"Ollama HTTP error: {exc}") from exc
 
         except Exception as exc:
             raise HTTPException(status_code=500, detail=f"Unexpected error: {str(exc)}") from exc

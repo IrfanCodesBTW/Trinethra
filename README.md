@@ -1,8 +1,8 @@
-# Trinethra - Supervisor Feedback Analyzer
+# DecisionEngine - Supervisor Feedback Analyzer
 
-Trinethra is a local-first draft assessment tool for DeepThought supervisor feedback transcripts. It sends a transcript to a locally running Ollama model and returns a structured five-section assessment for psychology-intern review: score, evidence, KPI mapping, gaps, and follow-up questions.
+DecisionEngine is a professional, local-first performance analytics platform designed to transform supervisor-intern feedback transcripts into structured, actionable insights. By leveraging local Large Language Models (LLMs) via Ollama, it generates comprehensive assessments—covering scoring, evidence extraction, KPI alignment, and gap analysis—to empower reviewers with data-driven decision support while maintaining absolute data privacy.
 
-The AI output is always a draft. The intern reviews it, can override the score with a mandatory reason, and can save or export the assessment locally.
+The AI-generated output serves as a high-quality draft for expert review. Professionals can audit the findings, provide mandatory justifications for score adjustments, and manage the assessment lifecycle through local archiving and exports.
 
 ## Setup Instructions
 
@@ -176,12 +176,12 @@ If given more time, the following enhancements are planned:
 1.  **Multi-Model Voting**: Implement a "Consensus" mode where the transcript is analyzed by two different models (e.g., Gemma and Qwen) to highlight scoring discrepancies for the intern.
 2.  **Audio-to-Text Integration**: Add a local Whisper.cpp integration to allow interns to upload audio files directly instead of manual transcriptions.
 3.  **PDF/Excel Reporting**: Upgrade the export feature from plain text to professional PDF reports with charts showing KPI impact over time.
-4.  **Local Vector DB**: Implement a local RAG (Retrieval-Augmented Generation) system using ChromaDB to compare the current feedback with the Fellow's historical performance for trend analysis.
+4.  **Local Vector DB**: Implement a local RAG (Retrieval-Augmented Generation) system using ChromaDB to compare the current feedback with the Professional's historical performance for trend analysis.
 
 ## Submission Videos
 
-- **App Demo (2-3 min)**: [2026-04-30 11-36-45.mp4](file:///f:/projects/assessment/Trinethra/2026-04-30%2011-36-45.mp4)
-- **Code Walkthrough (3-5 min)**: [2026-04-30 11-22-44.mp4](file:///f:/projects/assessment/Trinethra/2026-04-30%2011-22-44.mp4)
+- **App Demo (2-3 min)**: [2026-04-30 11-36-45.mp4](file:///f:/projects/assessment/DecisionEngine/2026-04-30%2011-36-45.mp4)
+- **Code Walkthrough (3-5 min)**: [2026-04-30 11-22-44.mp4](file:///f:/projects/assessment/DecisionEngine/2026-04-30%2011-22-44.mp4)
 
 > [!NOTE]
 > Videos are submitted via the Internshala chat as per the assignment instructions.

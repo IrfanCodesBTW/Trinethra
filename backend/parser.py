@@ -27,24 +27,41 @@ VALID_KPI_IDS = {
     "quality",
 }
 
+# Common hallucinations or specific rubric labels used as dimensions
+DIMENSION_MAPPING = {
+    "problem_identifier": "execution",
+    "problem_solver": "systems_building",
+    "innovative": "systems_building",
+    "experimental": "systems_building",
+    "nps": "kpi_impact",
+    "lead_generation": "kpi_impact",
+    "lead_conversion": "kpi_impact",
+    "upselling": "kpi_impact",
+    "cross_selling": "kpi_impact",
+    "pat": "kpi_impact",
+    "tat": "kpi_impact",
+    "quality": "kpi_impact",
+    "behavior": "execution",
+    "reliability": "execution",
+}
+
+# Common hallucinations for KPI IDs
+KPI_MAPPING = {
+    "net_promoter_score": "nps",
+    "turnaround_time": "tat",
+    "profit_after_tax": "pat",
+}
+
 
 class ParseError(Exception):
     pass
 
 
 def strip_markdown(text: str) -> str:
-    text = re.sub(r"^```\s*(?:json)?\s*", "", text.strip(), flags=re.IGNORECASE)
-    text = re.sub(r"```\s*$", "", text.strip())
-
-    start = text.find("{")
-    if start == -1:
+    match = re.search(r"\{.*\}", text, re.DOTALL)
+    if not match:
         raise ParseError("No JSON object found in LLM response")
-    text = text[start:]
-
-    end = text.rfind("}")
-    if end == -1:
-        raise ParseError("JSON object has no closing brace - output may be truncated")
-    return text[: end + 1]
+    return match.group(0)
 
 
 def check_truncation(text: str) -> None:
@@ -95,7 +112,10 @@ def normalize_enum_casing(data: Any) -> None:
                 continue
             for key in ("signal", "dimension"):
                 if isinstance(item.get(key), str):
-                    item[key] = item[key].lower()
+                    val = item[key].lower().strip().replace(" ", "_")
+                    if key == "dimension" and val not in VALID_DIMENSIONS:
+                        val = DIMENSION_MAPPING.get(val, val)
+                    item[key] = val
 
     kpi_mapping = data.get("kpi_mapping")
     if isinstance(kpi_mapping, list):
@@ -104,13 +124,19 @@ def normalize_enum_casing(data: Any) -> None:
                 continue
             for key in ("kpi", "system_or_personal"):
                 if isinstance(item.get(key), str):
-                    item[key] = item[key].lower()
+                    val = item[key].lower().strip().replace(" ", "_")
+                    if key == "kpi" and val not in VALID_KPI_IDS:
+                        val = KPI_MAPPING.get(val, val)
+                    item[key] = val
 
     gaps = data.get("gaps")
     if isinstance(gaps, list):
         for item in gaps:
             if isinstance(item, dict) and isinstance(item.get("dimension"), str):
-                item["dimension"] = item["dimension"].lower()
+                val = item["dimension"].lower().strip().replace(" ", "_")
+                if val not in VALID_DIMENSIONS:
+                    val = DIMENSION_MAPPING.get(val, val)
+                item["dimension"] = val
 
 
 def validate(data: dict[str, Any]) -> None:
