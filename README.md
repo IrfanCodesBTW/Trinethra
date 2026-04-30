@@ -156,7 +156,7 @@ python -m unittest test_parser.py
 Run syntax check:
 
 ```powershell
-cd F:\projects\assessment\Trinethra
+cd ./
 python -m py_compile backend/main.py backend/parser.py backend/prompt_builder.py
 ```
 
@@ -169,4 +169,19 @@ python -m py_compile backend/main.py backend/parser.py backend/prompt_builder.py
 - `index.html` - Single-page app shell.
 - `app.js` - API calls, rendering, settings, archive, score override, export.
 - `style.css` - Visual styling and animation states.
-#
+
+## Future Improvements
+
+If given more time, the following enhancements are planned:
+1.  **Multi-Model Voting**: Implement a "Consensus" mode where the transcript is analyzed by two different models (e.g., Gemma and Qwen) to highlight scoring discrepancies for the intern.
+2.  **Audio-to-Text Integration**: Add a local Whisper.cpp integration to allow interns to upload audio files directly instead of manual transcriptions.
+3.  **PDF/Excel Reporting**: Upgrade the export feature from plain text to professional PDF reports with charts showing KPI impact over time.
+4.  **Local Vector DB**: Implement a local RAG (Retrieval-Augmented Generation) system using ChromaDB to compare the current feedback with the Fellow's historical performance for trend analysis.
+
+## Submission Videos
+
+- **App Demo (2-3 min)**: [2026-04-30 11-36-45.mp4](file:///f:/projects/assessment/Trinethra/2026-04-30%2011-36-45.mp4)
+- **Code Walkthrough (3-5 min)**: [2026-04-30 11-22-44.mp4](file:///f:/projects/assessment/Trinethra/2026-04-30%2011-22-44.mp4)
+
+> [!NOTE]
+> Videos are submitted via the Internshala chat as per the assignment instructions.
